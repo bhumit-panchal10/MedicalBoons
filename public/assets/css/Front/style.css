@@ -1,0 +1,1520 @@
+body {
+  font-style: normal;
+      font-family: Sansation, sans-serif;
+      font-weight: 400;
+}
+p{
+    text-align:justify;
+}
+.medical-boons-works-section {
+  background-color: #fff0f5;
+}
+
+.medical-boons-works-title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.medical-boons-works-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.medical-boons-works-steps {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.medical-boons-works-step {
+  flex: 1 0 200px;
+  max-width: 300px;
+}
+
+.medical-boons-works-step img {
+  margin-bottom: 1rem;
+}
+
+.medical-boons-works-step-title {
+  font-weight: bold;
+}
+
+.medical-boons-works-step-description {
+  color: #6c757d;
+}
+
+/* <-----------------------------------------Main Css  code From here-------------------------------->  */
+
+/* Process css code */
+.how-it-works-section {
+  background-color: white;
+  padding: 2rem;
+}
+
+@media (max-width:768px) {
+    .how-it-works-section {
+  background-color: white;
+  padding: 1rem;
+}
+}
+
+.section-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.title-text {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.steps-row {
+  padding: 1rem;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-icon {
+  margin-bottom: 1rem;
+  max-width: 100%;
+  height: 50%;
+}
+
+.step-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+/* Footer css code  */
+
+.footer-section {
+  background-color: forestgreen;
+}
+
+.logo-container {
+  background-color: white;
+  /*border-radius: 50%;*/
+  padding: 10px;
+  display: inline-block;
+}
+
+.logo-image {
+  max-height: 120px;
+  border-radius: 50%;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.social-icon {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  height: 30px;
+}
+
+.social-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-button {
+  background-color: white;
+  color: forestgreen;
+  border-radius: 50px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-button:hover {
+  background-color: #e6e6e6;
+  color: forestgreen;
+}
+
+/* Why medical boons */
+
+/* Section Background */
+.bg-light-gray {
+  /*background-color: #fff0f5;*/
+}
+
+/* Section Heading */
+.section-heading {
+  font-size: 2rem;
+}
+
+.highlight-green {
+  color: green;
+  font-size: 2.5rem;
+}
+
+.highlight-pink {
+  color: palevioletred;
+  font-size: 2.5rem;
+}
+
+/* Reusable Class for Feature Items */
+.feature img {
+  width: 48px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Main Section Wrapper (consistent naming) */
+.why-medicalboons-section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Main Page css code  */
+
+.banner-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-bg {
+  /*background: linear-gradient(135deg, #bc0bed, #d6d168);*/
+  /*background:#0b44ed;*/
+  padding: 60px 70px;
+  min-height: 420px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.explore-btn {
+    margin-top:-100px !important;
+    margin-left:80px !important;
+}
+
+@media (max-width:768px) {
+    .banner-bg {
+  /*background: linear-gradient(135deg, #bc0bed, #d6d168);*/
+  /*background:#0b44ed;*/
+  padding: 60px 70px;
+  min-height: 161px !important;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.explore-btn {
+    margin-top:-100px !important;
+    margin-left:-270px !important;
+    font-size:8px;
+    padding:5px;
+}
+
+}
+
+
+
+.banner-text {
+  max-width: 50%;
+  text-align: left;
+}
+
+.banner-heading {
+  letter-spacing: 3px;
+  font-size:25px;
+  line-height:30px;
+}
+.banner-subtitle {
+  letter-spacing: 3px;
+  font-size:15px;
+  line-height:30px;
+}
+
+.banner-subheading {
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.banner-description {
+  opacity: 0.9;
+}
+
+.banner-feature {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+.banner-feature img {
+  width: 22px;
+  height: 22px;
+}
+
+.banner-image-wrapper {
+  overflow: hidden;
+  width: auto;
+  height: 400px;
+  border-radius: 20px;
+}
+
+.banner-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: transparent;
+}
+
+/* Styling for Partner Logos */
+      .partner-logo {
+        /*width: 120px;*/
+        height: 85px;
+        /*object-fit: cover;*/
+      }
+
+      .partner-logo + h5 {
+        font-size: 1.2rem;
+        color: #333;
+        margin-top: 10px;
+      }
+
+      .col {
+        text-align: center;
+      }
+      
+
+/* @media (max-width: 1000px) {
+  .banner-section {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 60px 70px;
+    text-align: left;
+  }
+
+  .banner-text {
+    max-width: 50%;
+    text-align: center;
+  }
+
+  .banner-image {
+    width: 400px;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+  }
+} */
+
+@media (max-width: 768px) {
+  .banner-section {
+    /* justify-content: space-between; */
+    /* padding: 60px 70px; */
+    text-align: left;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .banner-text {
+    align-items: start;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .banner-image {
+    width: 400px;
+    height: 400px;
+    align-items: right;
+  }
+   .main-page-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+.main-page-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+/*----------------------------------------- Accessible Services------------------------------ */
+.Accessible-Services {
+  /*background-color: #fff0f5;*/
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.Accessible-Services-card {
+  border-radius: 30px;
+  border-color: palevioletred;
+  border:none;
+}
+
+/* Our Trusted Clients css code view-all  */
+
+/* Our Trusted Clients css code  */
+
+.trusted-clients {
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.highlight-green {
+  color: forestgreen;
+}
+
+.highlight-pink {
+  color: palevioletred;
+}
+
+.client-carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.client-track {
+  display: flex;
+  gap: 2rem;
+  animation: scroll 20s linear infinite;
+  width: max-content;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.client-logo {
+  min-width: 120px;
+  height: 120px;
+  margin: 0 0px;
+  border-radius: 10px;
+  /*background-color: lightgreen;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.client-logo img {
+  max-width: 90%;
+  max-height: 100%;
+  /*border-radius: 50%;*/
+  object-fit: contain;
+}
+
+/* Popular Packages css code  */
+
+.popular-packages {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.text-green {
+  color: #28a745;
+}
+.text-pink {
+  color: #e83e8c;
+}
+.popular-btn {
+  background-color: #e83e8c;
+  color: white;
+  border: none;
+}
+.popular-btn:hover {
+  background-color: #d0367a;
+}
+.img-border {
+  border: 1px solid #eee;
+  padding: 3px; /* Small padding around image if needed */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  height: 180px; /* Fixed height for images */
+}
+
+@media (min-width: 1441px) and (max-width: 1800px) {
+    .img-border {
+        border: 1px solid #eee;
+  padding: 3px; /* Small padding around image if needed */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  height: 230px; /* Fixed height for images */
+    }
+}
+
+/* Custom Carousel Styles */
+.custom-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative; /* For positioning custom controls */
+}
+
+.custom-carousel-track {
+  display: flex;
+  transition: transform 0.7s ease-in-out; /* Slower, smoother transition */
+}
+
+.carousel-card {
+  flex: 0 0 calc(25% - 15px); /* Show 4 cards, account for gap. 15px is (gap * (numVisible-1))/numVisible */
+  margin-right: 20px; /* Gap between cards */
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Make the <a> a block for proper sizing */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem; /* Bootstrap's default card border-radius */
+}
+.carousel-card:last-child {
+  margin-right: 0; /* No margin for the very last card in the track */
+}
+
+.carousel-card img {
+  width: 100%;
+  border-top-left-radius: calc(
+    0.375rem - 1px
+  ); /* Adjust for Bootstrap card style */
+  border-top-right-radius: calc(0.375rem - 1px);
+}
+.carousel-card .card-body {
+  padding: 1rem; /* Standard Bootstrap card padding */
+}
+.carousel-card .card-title {
+  font-weight: bold;
+}
+
+/* Custom Controls */
+.custom-carousel-controls {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.custom-carousel-controls button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.custom-carousel-controls button:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .carousel-card {
+    flex: 0 0 calc(33.333% - 14px); /* Show 3 cards */
+  }
+}
+@media (max-width: 768px) {
+  .carousel-card {
+    flex: 0 0 calc(50% - 10px); /* Show 2 cards */
+  }
+}
+@media (max-width: 576px) {
+  .carousel-card {
+    flex: 0 0 calc(100% - 0px); /* Show 1 card */
+    margin-right: 0; /* Full width, no right margin needed */
+  }
+  .custom-carousel-viewport {
+    /* Add some padding on sides if one card is full width to see it's a carousel */
+    padding: 0 15px;
+  }
+  .carousel-card {
+    margin-right: 15px; /* Maintain gap even for single item when cloning occurs */
+  }
+  .custom-carousel-track {
+    /* Adjust track for padding if needed, or ensure card has margin */
+  }
+}
+
+/* Basic Tests  css code  */
+
+#prevBtn,
+.prevBtn {
+  background-color: forestgreen;
+}
+
+#nextBtn,
+.nextBtn {
+  background-color: palevioletred;
+}
+
+#testNextBtn,
+.testNextBtn {
+  background-color: palevioletred;
+}
+
+#testPrevBtn,
+.testPrevBtn {
+  background-color: forestgreen;
+}
+
+.section-container {
+  /* Added a wrapper for multiple sections for demo */
+  margin-bottom: 40px;
+}
+
+.basic-tests-section {
+  /*background-color: #fff0f5;*/
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.text-green {
+  color: #28a745;
+}
+.text-pink {
+  color: #e83e8c;
+}
+.popular-btn,
+.view-all-btn {
+  /* Common style for view all buttons */
+  background-color: #e83e8c;
+  color: white;
+  border: none;
+}
+.popular-btn:hover,
+.view-all-btn:hover {
+  background-color: #d0367a;
+}
+
+/* --- Generic Custom Carousel Styles --- */
+.custom-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.custom-carousel-track {
+  display: flex;
+  transition: transform 0.7s ease-in-out;
+}
+
+.custom-carousel-controls {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.custom-carousel-controls button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.custom-carousel-controls button:hover {
+  background-color: #5a6268;
+}
+
+/* --- Styles for the FIRST (Packages) Carousel --- */
+.packages-carousel-item {
+  /* Specific class for package cards */
+  flex: 0 0 calc(25% - 15px);
+  margin-right: 20px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+}
+.packages-carousel-item:last-child {
+  margin-right: 0;
+}
+.packages-carousel-item .card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(0.375rem - 1px);
+  border-top-right-radius: calc(0.375rem - 1px);
+  object-fit: cover;
+  height: 180px;
+}
+.packages-carousel-item .card-body {
+  padding: 1rem;
+}
+.packages-carousel-item .card-title {
+  font-weight: bold;
+}
+
+/* --- Styles for the SECOND (Tests) Carousel --- */
+.tests-carousel-item {
+  /* Specific class for test cards */
+  flex: 0 0 calc(25% - 15px); /* Show 4 cards, 15px is for 20px gap: (20px * 3) / 4 */
+  margin-right: 20px; /* Gap between cards */
+  box-sizing: border-box;
+  /* The col-md-3 and mb-4 classes from original HTML are now part of this item */
+}
+.tests-carousel-item:last-child {
+  margin-right: 0; /* No margin for the very last card in the track */
+}
+.test-card {
+  /* Styles for the inner card element */
+  height: 100%;
+  display: flex; /* Ensure footer (button) can be pushed down if needed */
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Lighter shadow than section */
+}
+.test-card .card-body {
+  flex-grow: 1; /* Allows button to be pushed to bottom */
+}
+.test-logo {
+  width: 70px; /* Adjust as needed */
+  height: 70px; /* Adjust as needed */
+  border: 2px solid #e83e8c; /* Pink border for logo */
+}
+.test-logo img {
+  object-fit: cover; /* Ensure image covers the area */
+}
+.book-now-btn {
+  background-color: #28a745; /* Green button */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem; /* Smaller padding */
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  margin-top: auto; /* Pushes button to bottom of card-body */
+}
+.book-now-btn:hover {
+  background-color: #218838;
+}
+.test-card .card-title {
+  font-size: 1rem; /* Slightly smaller title for test cards */
+  min-height: 40px;
+  color: palevioletred; /* Ensure titles have enough space, prevent jumpiness */
+}
+
+/* --- Responsive adjustments for BOTH carousels (using item classes) --- */
+@media (max-width: 992px) {
+  .packages-carousel-item,
+  .tests-carousel-item {
+    flex: 0 0 calc(33.333% - 14px); /* Show 3 cards. Gap calc: (20px * 2) / 3 ~= 14px */
+  }
+}
+@media (max-width: 768px) {
+  .packages-carousel-item,
+  .tests-carousel-item {
+    flex: 0 0 calc(50% - 10px); /* Show 2 cards. Gap calc: (20px * 1) / 2 = 10px */
+  }
+}
+@media (max-width: 576px) {
+  .packages-carousel-item,
+  .tests-carousel-item {
+    flex: 0 0 calc(100% - 20px); /* Show 1 card, allow for full margin */
+    margin-right: 20px; /* Re-apply margin for single item if viewport has no padding */
+  }
+  .custom-carousel-viewport {
+    /* Add padding on small screens if 1 card is shown */
+    padding: 0 5px; /* So edges of the single card are visible */
+  }
+}
+
+/* Testimonials css code  */
+
+.testimonial-section {
+  /*background-color: #fff0f5;*/
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 1rem;
+  animation: scroll 25s linear infinite;
+  width: max-content;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-wrapper {
+  display: flex;
+  overflow: hidden;
+}
+
+.testimonial-card {
+  border: 2px solid lightpink;
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 250px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.testimonial-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.testimonial-name {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.testimonial-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.green-text {
+  color: green;
+}
+
+.pink-text {
+  color: palevioletred;
+}
+
+@media (max-width: 768px) {
+  .testimonial-track {
+    animation-duration: 40s;
+  }
+}
+
+/* download the app css code  */
+
+.app-promo-section {
+  /*background-color: #fff0f5;*/
+  padding: 3rem 0;
+}
+
+.promo-heading {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.promo-green {
+  font-weight: bold;
+  color: forestgreen;
+}
+
+.promo-pink {
+  font-weight: bold;
+  color: palevioletred;
+}
+
+.promo-description {
+  margin-bottom: 1.5rem;
+  color: black;
+}
+
+.google-play-btn {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.google-play-btn img {
+  margin-right: 0.5rem;
+}
+
+.app-promo-image {
+  height: 400px;
+  width: 100%;
+}
+
+/* Popular Profiles  css code  */
+
+.popular-profiles-section {
+  background-color: white;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.popular-title-green {
+  color: green;
+}
+
+.popular-title-pink {
+  color: palevioletred;
+}
+
+.view-all-btn {
+  background-color: forestgreen;
+  color: whitesmoke;
+}
+
+.profile-card {
+  border-radius: 30px;
+}
+
+.profile-image-wrapper {
+  width: 120px;
+  height: 120px;
+  background-color: #003366;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.book-now-btn {
+  background-color: forestgreen;
+  color: white;
+}
+
+/* <-----------------------------------------About Us Css Code --------------------------------------------> */
+.sticky-top-navbar {
+ 
+  z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff0f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.text-1 {
+  color: forestgreen;
+}
+
+.text-2 {
+  color: palevioletred;
+}
+
+.about-us-content {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* <-----------------------------------------Admin Css Code --------------------------------------------> */
+
+.navbar-wrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.admin-login-card {
+  background-color: #fff;
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  width: 100%;
+}
+
+.admin-login-card h3 {
+  color: forestgreen;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.admin-login-card p {
+  color: #6c757d;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.form-control:focus {
+  border-color: palevioletred;
+  box-shadow: 0 0 0 0.2rem rgba(219, 112, 147, 0.25);
+}
+
+.btn-admin {
+  background-color: forestgreen;
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-admin:hover {
+  background-color: #228b22;
+}
+
+.forgot-password {
+  color: palevioletred;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.adminBodySec{
+   margin: 0;
+        padding: 0;
+        height: 100vh;     
+        width: 100%;
+        background: linear-gradient(to right, #e8f5e9, #fce4ec);
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+
+@media (max-width: 576px) {
+  .admin-login-card {
+    padding: 40px 20px;
+  }
+}
+
+/* <-----------------------------------------B2BLogin Us Css Code --------------------------------------------> */
+
+.navbar-fixed {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.login-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-title {
+  margin-bottom: 1.5rem;
+  color: forestgreen;
+  font-weight: 700;
+}
+
+.btn-custom {
+  background-color: forestgreen;
+  color: white;
+  font-weight: 600;
+}
+
+.btn-custom:hover {
+  background-color: #228b22;
+}
+
+.form-control:focus {
+  border-color: palevioletred;
+  box-shadow: 0 0 0 0.2rem rgba(219, 112, 147, 0.25);
+}
+
+.forgot-link,
+.signup-link {
+  color: palevioletred;
+  text-decoration: none;
+}
+
+.forgot-link:hover,
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* <-----------------------------------------ContactUs Us Css Code --------------------------------------------> */
+
+.contact-img {
+  height: 450px;
+}
+
+.social-icon {
+  height: 40px;
+}
+
+/* <-----------------------------------------PackagesAll Us Css Code --------------------------------------------> */
+
+.package-section {
+  padding: 60px 0;
+}
+
+@media (max-width:768px) {
+    .package-section {
+  padding: 40px 0;
+}
+}
+
+.allcard-title {
+  color: palevioletred;
+  text-decoration: none;
+}
+
+.package-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 45px;
+}
+.package-title .title-part1 {
+  /* Target the span with class title-part1 inside package-title */
+  color: forestgreen;
+}
+
+.package-title .title-part2 {
+  /* Target the span with class title-part2 inside package-title */
+  color: palevioletred;
+}
+
+.package-card {
+  background-color: #f9fafb;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 30px 20px;
+}
+
+.package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.package-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: palevioletred;
+  margin-top: 0.5rem;
+}
+
+.text-muted {
+  color: #6b7280 !important;
+}
+
+.accordion-button {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .package-title {
+    font-size: 2rem;
+    margin-bottom:20px;
+  }
+}
+.package-image-full {
+  width: 100%;
+}
+.card-title a:hover {
+  color: #0056b3;
+}
+.img {
+  /*border-color: forestgreen;*/
+  /*border-style: solid;*/
+  border-width: 1px;
+}
+.button {
+  background-color: forestgreen;
+  color: white;
+}
+.button:hover {
+  background-color: palevioletred;
+}
+
+.price-book-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.package-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+.book-now-button {
+  background-color: forestgreen;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.book-now-button:hover {
+  background-color: palevioletred;
+}
+
+/* <-----------------------------------------PartnerWithUs Us Css Code --------------------------------------------> */
+
+.imgg {
+  height: 450px;
+}
+
+.form-section {
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+}
+
+.submit-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.social {
+  height: 40px;
+}
+
+/* <-----------------------------------------PlanDetails Us Css Code --------------------------------------------> */
+
+/* Global font and background */
+.page-gradient-bg {
+  font-family: "Sansation", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  background: linear-gradient(to right, #e8f5e9, #fce4ec);
+}
+
+/* Image */
+.package-img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Default styles for larger screens (desktop) - These might already exist */
+.banner-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
+  padding: 0px; /* Example padding */
+}
+
+.banner-text {
+  flex: 1; /* Takes up available space */
+  padding-right: 20px; /* Example spacing */
+}
+
+.banner-image-wrapper {
+  flex: 0 0 40%; /* Example width for the image */
+}
+
+.banner-feature {
+  /* Existing styles for the feature circles */
+}
+
+/* --------------------------  media query for main page sectione-1---------------------- */
+
+/* Media query for smaller screens (e.g., tablets and phones) */
+@media (max-width: 768px) {
+  .banner-section {
+    flex-direction: column; /* Stack items vertically */
+    text-align: center; /* Center text on smaller screens */
+  }
+
+  .banner-text {
+    padding-right: 0; /* Remove right padding */
+    margin-bottom: 20px; /* Add space below text */
+  }
+
+  .banner-heading {
+    font-size: 1.8rem; /* Adjust heading font size */
+  }
+
+  .banner-description {
+    font-size: 1rem; /* Adjust description font size */
+  }
+
+  .banner-image-wrapper {
+    width: 80%; /* Make image wider on smaller screens */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .d-flex.gap-4 {
+    flex-direction: column; /* Stack features vertically */
+    align-items: center; /* Center feature items */
+    gap: 20px; /* Adjust spacing between features */
+  }
+
+  .d-flex.align-items-center.gap-3 {
+    flex-direction: row; /* Ensure icon and text are in a row within each feature */
+    text-align: left; /* Align text to the left within the feature */
+  }
+}
+
+/* You might need additional media queries for even smaller screens (e.g., very small phones) */
+@media (max-width: 480px) {
+  .banner-heading {
+    font-size: 1.5rem;
+  }
+
+  .banner-description {
+    font-size: 0.9rem;
+  }
+}
+
+.AccesibleServiceBody{
+  /*background: linear-gradient(to right, #e8f5e9, #fce4ec);*/
+}
+
+/* --------------------------------All section Styling --------------------------------- */
+
+.BackGroundColor {
+  /*background: linear-gradient(to right, #e8f5e9, #fce4ec);*/
+}
+.allpageFonts {
+  font-style: normal;
+  font-family: Sansation, sans-serif;
+  font-weight: 400;
+}
+
+.main-page-first-word {
+  color: #00ffae;
+}
+
+.adminstyle {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 82vh;
+  max-height: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background: linear-gradient(to right, #e8f5e9, #fce4ec);
+}
+.accessibleServicesStyle {
+  overflow-x: hidden;}
+  .partner-logo {
+    /*width: 120px;*/
+    height: 85px;
+    /*object-fit: cover;*/
+  }
+
+  .partner-logo + h5 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 10px;
+  }
+
+  .col {
+    text-align: center;
+  }
+  .partners {
+    color: palevioletred;
+    font-size: 35px;
+  }
+  .network {
+    color: forestgreen;
+    font-size: 35px;
+  }
+}
+/* .headsec {
+  margin-top: 100px;
+} */
+.aboutUs {
+  min-height: 82vh;
+  max-height: 100%;
+  background: linear-gradient(to right, #e8f5e9, #fce4ec);
+}
+
+/* ------------------------------------nav-bar-style-------------------------------- */
+
+.nav-bar-1-div {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-bar-commone {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff0f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.nav-bar-main {
+  /* Default styles for all screen sizes (including medium and small) */
+  /* You can set padding to 0 here or any other desired value for smaller screens */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Media query for large screens (typically 992px and above) */
+@media (min-width: 992px) {
+  .nav-bar-main {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+.nav-logo {
+  height: 60px;
+}
+.title-word-2 {
+  color: palevioletred;
+}
+.drop-menu {
+  min-width: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.drop-items {
+  transition: background 0.2s ease;
+}
+.nav-2-small {
+  background-color: #318c07;
+}
+
+@media (max-width: 720px) {
+  .nav-2-small {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .contact-img {
+    display: none;
+  }
+}
+.followImg {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Adjust the gap as needed */
+}
+
+.social-icon {
+  width: 30px; /* Adjust the size as needed */
+  height: 30px; /* Adjust the size as needed */
+}
+
+/* For small screens (e.g., mobile devices) */
+@media (max-width: 768px) {
+  .followImg {
+    flex-direction: row; /* Stack the items vertically */
+    align-items: center; /* Center the items horizontally */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .playstroapp {
+    display: flex; 
+    flex-direction: column-reverse; 
+  }
+  .app-promo-image {
+    height: 300px; 
+    width: 100%; 
+  }
+}
+
+.card{
+    border:none !important;
+}
+
+.plan-desc  table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    width:100% !important;
+    /*border:1px solid #000 !important;*/
+}
+.plan-desc  table p {
+    margin:0;
+}
+.plan-desc  table tr:first-child p {
+    text-align:center !important;
+}
+
+.plan-desc  table tr:first-child  {
+    background-color: #1a81bc;
+    color:#fff;
+}
+.plan-desc  table td {
+    border:1px solid #000;
+    padding:8px;
+}
+#middle-extra{
+    background-color: #1a81bc;
+    color:#fff;
+}
+#middle-center{
+    text-align:center !important;
+}
+.plan-desc table tbody:first-child
+ {
+  /*background-color: #1a81bc;*/
+  /*color:#fff;*/
+  font-size:18px;
+}
+
+
+.plan-desc  table th {
+    border:1px solid #000;
+    padding:8px;
+    background:#ccc;
+    font-size:20px;
+}
