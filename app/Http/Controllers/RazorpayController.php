@@ -65,6 +65,7 @@ class RazorpayController extends Controller
             $orderId = $request->orderId;
 
             $CorporateOrder = CorporateOrder::where("Corporate_Order_id", $request->orderid)->first();
+
             $planid = $CorporateOrder->iPlanId;
             $ExtraMember = $CorporateOrder->iExtraMember;
 
@@ -156,13 +157,15 @@ class RazorpayController extends Controller
 
                 $data = [
                     'Mobile' => $CorporateOrder->mobile,
+                    'iExtraMember' => $CorporateOrder->iExtraMember,
+                    'iamountExtraMember' => $CorporateOrder->iamountExtraMember,
                     'contact_person' => $CorporateOrder->Name ?? '',
                     "Password" => $password,
                     'plan_name' => $plan->name ?? '',
                     'plan_amount' => $plan->amount ?? 0,
                     'plan_no_of_members' => $plan->no_of_members ?? 0,
-                    'start_date' => date('d-m-Y',strtotime($CorporateOrder->start_date)) ?? '',
-                    'end_date' => date('d-m-Y',strtotime($CorporateOrder->end_date)) ?? '',
+                    'start_date' => date('d-m-Y', strtotime($CorporateOrder->start_date)) ?? '',
+                    'end_date' => date('d-m-Y', strtotime($CorporateOrder->end_date)) ?? '',
                     'app_link' => 'https://play.google.com/store/apps/details?id=com.apollo.medical_boons',
                 ];
 
