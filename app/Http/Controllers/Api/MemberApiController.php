@@ -114,6 +114,69 @@ class MemberApiController extends Controller
             ], 500);
         }
     }
+
+     public function forgot_password(Request $request)
+    {
+        try {
+           
+           
+                $request->validate([
+                    'email' => 'required',
+                ]);
+              
+
+                // Find the vendor by email
+                $Member = Member::where(['iStatus' => 1, 'isDelete' => 0])
+                    ->where('email', $request->email)
+                    ->first();
+
+                if (!$Member) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => "Member not found."
+                    ], 404);
+                }
+
+                $otp = rand(1000, 9999);
+                $expiry_date = now()->addMinutes(5);
+
+                // Update the OTP and expiry in the database
+                $Member->update([
+                    'otp' => $otp,
+                    'expiry_time' => $expiry_date,
+                ]);
+
+                // Send the email
+                $sendEmailDetails = DB::table('sendemaildetails')->where(['id' => 9])->first();
+                $msg = [
+                    'FromMail' => $sendEmailDetails->strFromMail,
+                    'Title' => $sendEmailDetails->strTitle,
+                    'ToEmail' => $Member->email,
+                    'Subject' => $sendEmailDetails->strSubject,
+                ];
+
+                $data = array(
+                    'otp' => $otp,
+                    "name" => $Member->name
+                );
+
+
+                Mail::send('emails.forgotPassword', ['data' => $data], function ($message) use ($msg) {
+                    $message->from($msg['FromMail'], $msg['Title']);
+                    $message->to($msg['ToEmail'])->subject($msg['Subject']);
+                });
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'OTP sent successfully.'
+                ], 200);
+           
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
     
    public function ActiveMember(Request $request)
    {
@@ -354,65 +417,6 @@ class MemberApiController extends Controller
         }
     }
 
-    public function forgot_password(Request $request)
-    {
-        try {
-            $request->validate([
-                'mobile_no' => 'required',
-            ]);
-
-            // Find the vendor by email
-            $Technicial = Technicial::where(['iStatus' => 1, 'isDelete' => 0])
-                ->where('mobile_no', $request->mobile_no)
-                ->first();
-
-            if (!$Technicial) {
-                return response()->json([
-                    'success' => false,
-                    'message' => "Technicial not found."
-                ], 404);
-            }
-
-            $otp = rand(1000, 9999);
-            $expiry_date = now()->addMinutes(5);
-
-            // Update the OTP and expiry in the database
-            $Technicial->update([
-                'otp' => $otp,
-                'expiry_time' => $expiry_date,
-            ]);
-
-            // Send the email
-            $sendEmailDetails = DB::table('sendemaildetails')->where(['id' => 9])->first();
-            $msg = [
-                'FromMail' => $sendEmailDetails->strFromMail,
-                'Title' => $sendEmailDetails->strTitle,
-                'ToEmail' => $Technicial->email,
-                'Subject' => $sendEmailDetails->strSubject,
-            ];
-
-            $data = array(
-                'otp' => $otp,
-                "name" => $Technicial->name
-            );
-
-
-            Mail::send('emails.forgotPassword', ['data' => $data], function ($message) use ($msg) {
-                $message->from($msg['FromMail'], $msg['Title']);
-                $message->to($msg['ToEmail'])->subject($msg['Subject']);
-            });
-
-            return response()->json([
-                'success' => true,
-                'message' => 'OTP sent successfully.'
-            ], 200);
-        } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()], 500);
-        }
-    }
-
     public function forgot_password_verifyOTP(Request $request)
     {
         try {
@@ -421,15 +425,12 @@ class MemberApiController extends Controller
                 'otp' => 'required'
             ]);
 
-            $password = mt_rand(100000, 999999);
-
-
-            $Technicial = Technicial::where([
+            $Member = Member::where([
 
                 'otp' => $request->otp
             ])->first();
 
-            if (!$Technicial) {
+            if (!$Member) {
                 return response()->json([
                     'success' => false,
                     'message' => 'OTP is invalid. Please enter a valid OTP.',
@@ -437,47 +438,50 @@ class MemberApiController extends Controller
             }
 
             // Check if the OTP has expired
-            $expiryTime = Carbon::parse($Technicial->expiry_time);
+            $expiryTime = Carbon::parse($Member->expiry_time);
             if (now()->greaterThan($expiryTime)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'OTP has expired.',
                 ], 400);
             }
-
-            // Mark the OTP as verified and update the last login time
-            $Technicial->update([
-                // 'isOtpVerified' => 1,
-                'password' =>  Hash::make($password),
-                'last_login' => now(),
-            ]);
-
-            $data = array(
-                'password' => $password,
-                "name" =>  $Technicial->name,
-                "mobile_no" =>  $Technicial->mobile_no
-
-
-            );
-
-            $sendEmailDetails = DB::table('sendemaildetails')->where(['id' => 9])->first();
-            $msg = array(
-                'FromMail' => $sendEmailDetails->strFromMail,
-                'Title' => $sendEmailDetails->strTitle,
-                'ToEmail' => $Technicial->email,
-                'Subject' => $sendEmailDetails->strSubject
-            );
-
-            Mail::send('emails.forgotpasswordmail', ['data' => $data], function ($message) use ($msg) {
-                $message->from($msg['FromMail'], $msg['Title']);
-                $message->to($msg['ToEmail'])->subject($msg['Subject']);
-            });
-            // $vendorDetails = $vendor->only(['vendor_id','vendorname', 'isOtpVerified', 'login_id', 'vendormobile', 'email', 'businessname', 'businessaddress','vendorsocialpage','businesscategory','businessubcategory','is_changepasswordfirsttime']);
             return response()->json([
                 'success' => true,
                 'message' => 'OTP is valid.',
                 // 'vendor_details' => $vendorDetails,
 
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
+    public function Reset_password(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+
+            $Member = Member::where([
+                'email' => $request->email
+            ])->first();
+
+            if (!$Member) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Email is invalid. Please enter a valid email.',
+                ], 400);
+            }
+            $Member->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Password reset successfully.',
             ], 200);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
