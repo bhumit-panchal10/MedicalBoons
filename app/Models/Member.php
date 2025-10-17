@@ -26,6 +26,8 @@ class Member extends Authenticatable implements JWTSubject
         'pincode',
         'password',
         'iStatus',
+        'otp',
+        'expiry_time',
         'Order_id',
         'isDelete',
         'created_at',

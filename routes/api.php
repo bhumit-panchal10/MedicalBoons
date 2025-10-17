@@ -26,6 +26,9 @@ Route::post('/profiledetails', [MemberApiController::class, 'profiledetails'])->
 Route::post('/InactiveMember', [MemberApiController::class, 'InactiveMember'])->name('InactiveMember');
 Route::post('/ActiveMember', [MemberApiController::class, 'ActiveMember'])->name('ActiveMember');
 Route::post('/Member/change/password', [MemberApiController::class, 'change_password'])->name('change_password');
+Route::post('/Member/forgot/password', [MemberApiController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/Member/forgot/password/verifyOTP', [MemberApiController::class, 'forgot_password_verifyOTP']);
+Route::post('/Member/Reset/password', [MemberApiController::class, 'Reset_password']);
 
 Route::get('/service', [FrontApiController::class, 'servicelist'])->name('servicelist');
 Route::get('/LabTestCategory', [FrontApiController::class, 'LabTestCategory'])->name('LabTestCategory');
