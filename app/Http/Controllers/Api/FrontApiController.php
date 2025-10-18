@@ -680,35 +680,52 @@ class FrontApiController extends Controller
     public function CompareLabList(Request $request)
     {
         try {
+            // Validate incoming request data
             $request->validate([
                 'member_id' => 'required',
                 'labtestmasterid' => 'required'
             ]);
-            $listOfmember = Member::where('id', $request->member_id)->first();
+
+            // Fetch member details based on member_id
+            $listOfmember = Member::findOrFail($request->member_id);
             $orderid = $listOfmember->Order_id ?? 0;
+
+            // Fetch corporate order based on order_id
             $corporateorder = CorporateOrder::where('Corporate_Order_id', $orderid)->first();
             $customerplanid = $corporateorder->iPlanId ?? 0;
-
-            $labTests = DB::table('Lab_Test_Report_Amount as ltra')
+            $data = DB::table('Lab_Test_Report_Amount as ltra')
                 ->select(
-                    DB::raw('SUM(ltra.NetAmount) as total_amount'),
-                    'lm.name'
+                    DB::raw('SUM(MRP) as total_mrp'),
+                    DB::raw('SUM(DiscountAmount) as total_discount'),
+                    DB::raw('SUM(NetAmount) as total_net_amount'),
+                    DB::raw('(SELECT name FROM Lab_Master WHERE Lab_Master_id = ltra.Lab_Master_id) as labname')
                 )
-                ->join('Lab_Master as lm', 'lm.Lab_Master_id', '=', 'ltra.Lab_Master_id')
                 ->whereIn('Lab_Test_Master_id', explode(',', $request->labtestmasterid))
-                //->whereIn('labtestmasterid', $request->labtestmasterid)
-                ->where('planId', $customerplanid)
-                ->groupBy('ltra.Lab_Master_id', 'lm.name')
+                ->groupBy('Lab_Master_id')
                 ->get();
+
+            $results = $data->map(function ($item) {
+                return [
+                    'labname' => $item->labname,
+                    'total_mrp' => $item->total_mrp,
+                    'total_discount' => $item->total_discount,
+                    'total_net_amount' => $item->total_net_amount,
+                ];
+            });
+
+            // Return the response with lab test data
             return response()->json([
                 'success' => true,
-                'message' => "successfully fetched listOflabTests...",
-                'data' => $labTests,
+                'message' => "Successfully fetched list of lab tests.",
+                'data' => $results,
             ], 200);
+
         } catch (\Throwable $th) {
+            // Handle errors gracefully
             return response()->json(['error' => $th->getMessage()], 500);
         }
     }
+
 
     //   public function Labwise_disornetamount(Request $request)
     //   {
