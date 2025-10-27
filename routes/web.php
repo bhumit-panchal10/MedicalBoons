@@ -42,7 +42,6 @@ use App\Http\Controllers\AppoitmentController;
 use App\Http\Controllers\LabTestReportinquiryController;
 use App\Http\Controllers\BannerController;
 
-
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -385,4 +384,11 @@ Route::prefix('admin')->name('Member.')->middleware('auth')->group(function () {
     Route::delete('/Member/delete', [MemberController::class, 'delete'])->name('delete');
     Route::delete('/Member/deleteselected', [MemberController::class, 'deleteselected'])->name('deleteselected');
 });
-Route::get('{slugname?}', [FrontviewController::class, 'AboutUs'])->name('Front.AboutUs');
+
+Route::get('/{slug}', [\App\Http\Controllers\FrontviewController::class, 'AboutUs'])
+    ->name('Front.AboutUs')
+    ->where('slug', '[A-Za-z0-9-]+');
+
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
