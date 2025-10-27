@@ -78,18 +78,18 @@ class FrontviewController extends Controller
     public function PlanDetail(Request $request, $planid, $guid = null)
     {
         try {
-             if ($guid) {
+            if ($guid) {
                 Cookie::queue('GUid', $guid, 60 * 24 * 365 * 5);
             }
             $g_uid = $guid ?? $request->cookie('GUid');
 
             $plans = Plan::where('slugname', $planid)->first();
-             if (!$plans) {
+            if (!$plans) {
                 Toastr::error('Plan not found.');
                 return redirect()->back();
             }
             $plandetails = PlanDetail::with('service')->where('plan_id', $plans->id)->get();
-            return view('frontview.PlanDetail', compact('plandetails', 'plans','g_uid'));
+            return view('frontview.PlanDetail', compact('plandetails', 'plans', 'g_uid'));
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
@@ -98,20 +98,25 @@ class FrontviewController extends Controller
 
     public function AboutUs(Request $request, $id)
     {
-        try {
-            $CMSMaster = CMSMaster::where('slugname', $id)->first();
-          
-            return view('frontview.AboutUs', compact('CMSMaster'));
-        } catch (\Throwable $th) {
-            Toastr::error('Error: ' . $th->getMessage());
-            return redirect()->back()->withInput();
+        // dd($id);
+        // try {
+        $CMSMaster = CMSMaster::where('slugname', $id)->first();
+
+        if (!$CMSMaster) {
+            abort(404);
         }
+
+        return view('frontview.AboutUs', compact('CMSMaster'));
+        // } catch (\Throwable $th) {
+        //     Toastr::error('Error: ' . $th->getMessage());
+        //     return redirect()->back()->withInput();
+        // }
     }
 
     public function PartnerWithUs()
     {
         try {
-          
+
             return view('frontview.PartnerWithUs');
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
@@ -150,26 +155,26 @@ class FrontviewController extends Controller
                 'email.unique' => 'This email is already registered.',
                 'mobile.unique' => 'This mobile number is already registered.',
             ]);
-          
+
 
             $guid = Str::uuid();
             $Main_parent_id = 0;
             $Parent_id      = 0;
             $iOrderType     = 3; // default
-            
-           
+
+
             if ($request->Guid) {
-                    $users = Users::where('Guid', $request->Guid)->first();
-        
-                    if ($users) {
-                        $Main_parent_id = $users->Main_parent_id;
-                        $Parent_id      = $users->Users_id;
-                        $iOrderType     = 2; // 👉 If Guid found, set order type 3
-                    } else {
-                        return back()->withErrors("Guid not found in Users table")->withInput();
-                    }
+                $users = Users::where('Guid', $request->Guid)->first();
+
+                if ($users) {
+                    $Main_parent_id = $users->Main_parent_id;
+                    $Parent_id      = $users->Users_id;
+                    $iOrderType     = 2; // 👉 If Guid found, set order type 3
+                } else {
+                    return back()->withErrors("Guid not found in Users table")->withInput();
+                }
             }
-            
+
             // $password = Str::password(12);
             // $hashedPassword = Hash::make($password);
             // $member = Member::create([
@@ -304,9 +309,9 @@ class FrontviewController extends Controller
     public function AccessibleServices(Request $request)
     {
         try {
-            
+
             $ourpartners = Ourclient::get();
-            return view('frontview.AccessibleServices',compact('ourpartners'));
+            return view('frontview.AccessibleServices', compact('ourpartners'));
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
