@@ -197,7 +197,7 @@
                                                             class="text-center px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
                                                             <a href="{{ config('app.CorporateUserOrder') . $CorporateOrder->Guid }}"
                                                                 target="_blank"
-                                                                class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                                class="inline-block bg-blue-500 hover:bg-blue-700 dark:text-black font-bold py-2 px-4 rounded">
                                                                 Member Register
                                                             </a>
                                                         </td>

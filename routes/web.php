@@ -368,6 +368,7 @@ Route::prefix('admin')->name('Corporate_Order.')->middleware('auth')->group(func
 
     Route::delete('/Corporate_Order/delete', [CorporateOrderController::class, 'delete'])->name('delete');
     Route::delete('/Corporate_Order/deleteselected', [CorporateOrderController::class, 'deleteselected'])->name('deleteselected');
+    Route::get('/Corporate_Order/appoitment_or_labdisplay/{memberid?}', [CorporateOrderController::class, 'appoitment_or_labdisplay'])->name('appoitment_or_labdisplay');
 });
 Route::get('/CorporateOrderMemberRegistration/{guid?}', [CorporateOrderController::class, 'CorporateOrderMemberRegistration'])->name('CorporateOrderMemberRegistration');
 

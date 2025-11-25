@@ -48,7 +48,7 @@ class BUserController extends Controller
 
             $user = Users::where('Users_id', $sessionUsers_id)->first();
             $GUid = $user->Guid;
-            $Plans = Plan::paginate(config('app.per_page'));
+            $Plans = Plan::where('is_corporate',0)->paginate(config('app.per_page'));
 
             return view('BUser.plan', compact('Plans', 'GUid'));
         } catch (\Throwable $th) {

@@ -10,13 +10,17 @@ $file = str_replace('#Password', $data['Password'], $file);
 $file = str_replace('#contact_person', $data['contact_person'], $file);
 $file = str_replace('#plan_name', $data['plan_name'], $file);
 
-// Check and update plan members and plan amount if extra member or extra amount is available
+// Add extra members
 if (isset($data['iExtraMember']) && $data['iExtraMember'] > 0) {
-    $data['plan_no_of_members'] += $data['iExtraMember']; // Add extra members to plan members
+    $data['plan_no_of_members'] += $data['iExtraMember'];
 }
 
-if (isset($data['iamountExtraMember']) && $data['iamountExtraMember'] > 0) {
-    $data['plan_amount'] += $data['iamountExtraMember']; // Add extra amount to plan amount
+// Add extra amount properly
+if (isset($data['iExtraMember']) && isset($data['iamountExtraMember'])) {
+
+    $extraTotal = $data['iExtraMember'] * $data['iamountExtraMember']; // FIX
+    
+    $data['plan_amount'] += $extraTotal; 
 }
 
 $file = str_replace('#plan_amount', $data['plan_amount'], $file);

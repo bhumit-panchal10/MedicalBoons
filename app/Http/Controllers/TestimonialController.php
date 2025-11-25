@@ -45,7 +45,7 @@ class TestimonialController extends Controller
                 $root = $_SERVER['DOCUMENT_ROOT'];
                 $image = $request->file('image');
                 $img = time() . '_' . date('dmYHis') . '.' . $image->getClientOriginalExtension();
-                $destinationpath = $root . '/MedicalBoons/upload/testimonial/';
+                $destinationpath = $root . '/upload/testimonial/';
                 if (!file_exists($destinationpath)) {
                     mkdir($destinationpath, 0755, true);
                 }
@@ -113,7 +113,7 @@ class TestimonialController extends Controller
                 $root = $_SERVER['DOCUMENT_ROOT'];
                 $image = $request->file('edit_img');
                 $img = time() . '_' . date('dmYHis') . '.' . $image->getClientOriginalExtension();
-                $destinationpath = $root . '/MedicalBoons/upload/testimonial/';
+                $destinationpath = $root . '/upload/testimonial/';
                 if (!file_exists($destinationpath)) {
                     mkdir($destinationpath, 0755, true);
                 }
@@ -176,7 +176,7 @@ class TestimonialController extends Controller
 
             $root = $_SERVER['DOCUMENT_ROOT'];
             //$destinationPath = $root . '/vybecab/upload/testimonial/';
-            $destinationPath = $root . '/MedicalBoons/upload/testimonial/';
+            $destinationPath = $root . '/upload/testimonial/';
 
             // Check if the testimonial has an image and delete it if exists
             if ($testimonial->photo && file_exists($destinationPath . $testimonial->photo)) {
@@ -214,7 +214,7 @@ class TestimonialController extends Controller
             //Testimonial::whereIn('id', $ids)->delete();
             $root = $_SERVER['DOCUMENT_ROOT'];
             // $destinationPath = $root . '/vybecab/upload/testimonial/';
-            $destinationPath = $root . '/MedicalBoons/upload/testimonial/';
+            $destinationPath = $root . '/upload/testimonial/';
             foreach ($testimonials as $testimonial) {
 
                 // Check if the testimonial has an image and delete it if exists

@@ -123,7 +123,8 @@ class RazorpayController extends Controller
                 }
 
                 // dd($existingMember);
-                $password = Str::password(12);
+               // $password = Str::password(12);
+                $password = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
                 $hashedPassword = Hash::make($password);
                 $Member = Member::create([
                     'name' => $CorporateOrder->Name,
