@@ -64,11 +64,18 @@
 
                                                     <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
                                                         data-sort="action">Link</th>
+                                                        
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="action">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
                                                 <?php $i = 1; ?>
+                                              
                                                 @foreach ($Plans as $plan)
+                                                  @php
+                                                    $link = $plan->slugname && $GUid ? url('Plan/Detail/' . $plan->slugname . '/' . $GUid) : '-';
+                                                @endphp
                                                     <tr>
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 id">
@@ -85,14 +92,39 @@
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
                                                             {{ $plan->amount ?? '-' }}</td>
+                                                            
+                                                        <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
+                                                            @if ($link != '-')
+                                                                <span id="link-{{ $plan->id }}">{{ $link }}</span>
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
 
-                                                        <td
-                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
-                                                            {{ $plan->slugname && $GUid ? url('Plan/Detail/' . $plan->slugname . '/' . $GUid) : '-' }}
+                                                        <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 text-center">
+    
+                                                            <!-- Copy Icon -->
+                                                            <span onclick="copyToClipboard('link-{{ $plan->id }}')"
+                                                                  class="inline-block cursor-pointer"
+                                                                  title="Copy Link">
+                                                        
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     width="20"
+                                                                     height="20"
+                                                                     viewBox="0 0 24 24"
+                                                                     fill="currentColor"
+                                                                     class="text-blue-600 dark:text-blue-400 hover:text-blue-800">
+                                                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                                                </svg>
+                                                        
+                                                            </span>
+                                                        
                                                         </td>
 
 
-                                                        </td>
+
+
+                                                        
 
                                                     </tr>
 
@@ -125,4 +157,20 @@
 
 @endsection
 @section('script')
+<script>
+function copyToClipboard(elementId) {
+    
+    let text = document.getElementById(elementId).innerText;
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            alert("Link copied to clipboard!");
+            window.location.reload();
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+        });
+}
+</script>
+
 @endsection

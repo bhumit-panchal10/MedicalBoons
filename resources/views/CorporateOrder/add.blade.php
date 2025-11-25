@@ -103,13 +103,13 @@
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="email-field" class="">Amount of Extra Member</label>
+                                                        <label for="email-field" class="">Amount of Extra
+                                                            Member</label>
                                                         <input type="text" id="iamountExtraMember"
                                                             name="iamountExtraMember" maxlength="150"
                                                             class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
-                                                            placeholder="Enter Amount of Extra Member"
-                                                            autocomplete="off" autofocus
-                                                            value="{{ old('iamountExtraMember') }}">
+                                                            placeholder="Enter Amount of Extra Member" autocomplete="off"
+                                                            autofocus value="{{ old('iamountExtraMember') }}">
                                                     </div>
 
                                                     <div class="mb-3">
@@ -206,17 +206,73 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         function calculateAmounts() {
             const selectedPlan = $('#Plan_id option:selected');
 
-            const planAmount = parseFloat(selectedPlan.data('amount')) || 0;
+            let planAmount = parseFloat(selectedPlan.data('amount')) || 0;
             const extraCost = parseFloat(selectedPlan.data('extra-cost')) || 0;
             const days = parseInt(selectedPlan.data('days')) || 0;
             const no_of_member = parseInt(selectedPlan.data('no_of_member')) || 0;
 
             const extraMembers = parseInt($('#iExtraMember').val()) || 0;
+
+            // 👉 If user manually edits the plan amount, use that value
+            const userPlanAmount = parseFloat($('#PlanAmount').val());
+            if (!isNaN(userPlanAmount)) {
+                planAmount = userPlanAmount;
+            }
+
+            // Net Amount = plan amount * extra members (or 1 if no extra members)
+            let netAmount = (extraMembers === 0) ?
+                planAmount :
+                (planAmount * extraMembers);
+
+            const amountOfExtra = extraCost * extraMembers;
+
+            $('#iamountExtraMember').val(extraCost.toFixed());
+            if (!$('#PlanAmount').is(':focus')) {
+                $('#PlanAmount').val(planAmount.toFixed());
+            }
+
+            $('#NetAmount').val(netAmount.toFixed());
+            $('#no_of_member').val(no_of_member);
+            $('#extra_amount_of_extra_member').val(amountOfExtra);
+
+            const startDateStr = $('#StartDate').val();
+            if (startDateStr && days > 0) {
+                const startDate = new Date(startDateStr);
+                startDate.setDate(startDate.getDate() + days);
+                const endDateStr = startDate.toISOString().split('T')[0];
+                $('#EndDate').val(endDateStr);
+            }
+        }
+
+        // Trigger events
+        $('#Plan_id').on('change', calculateAmounts);
+        $('#iExtraMember, #StartDate, #PlanAmount').on('input change', calculateAmounts);
+    </script> --}}
+
+    <script>
+        function calculateAmounts() {
+
+            const selectedPlan = $('#Plan_id option:selected');
+
+            // Values coming from dropdown attributes
+            const defaultPlanAmount = parseFloat(selectedPlan.data('amount')) || 0;
+            const extraCost = parseFloat(selectedPlan.data('extra-cost')) || 0;
+            const days = parseInt(selectedPlan.data('days')) || 0;
+            const planMembers = parseInt(selectedPlan.data('no_of_member')) || 0;
+
+
+            // User inputs
+            let planAmount = parseFloat($('#PlanAmount').val()) || 0;
+            const extraMembers = parseInt($('#iExtraMember').val()) || 0;
+
+
+            // Calculate Net Amount
             let netAmount = 0;
+
             if (extraMembers === 0) {
                 netAmount = planAmount;
             } else {
@@ -226,26 +282,50 @@
             const amountOfExtra = extraCost * extraMembers;
 
 
-            $('#iamountExtraMember').val(extraCost.toFixed());
-            $('#PlanAmount').val(planAmount.toFixed());
-            $('#NetAmount').val(netAmount.toFixed());
-            $('#no_of_member').val(no_of_member);
+            // Update fields
+            $('#iamountExtraMember').val(extraCost);
+            $('#NetAmount').val(netAmount);
+            $('#no_of_member').val(planMembers);
             $('#extra_amount_of_extra_member').val(amountOfExtra);
 
+
+            // Auto End Date
             const startDateStr = $('#StartDate').val();
+
             if (startDateStr && days > 0) {
                 const startDate = new Date(startDateStr);
                 startDate.setDate(startDate.getDate() + days);
-                //startDate.setFullYear(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + days);
-
                 const endDateStr = startDate.toISOString().split('T')[0];
                 $('#EndDate').val(endDateStr);
             }
         }
 
-        $('#Plan_id').on('change', calculateAmounts);
-        $('#iExtraMember, #StartDate').on('input change', calculateAmounts);
+
+        // 🔹 When selecting plan → always update Plan Amount from dropdown
+        $('#Plan_id').on('change', function() {
+
+            const selectedPlan = $('#Plan_id option:selected');
+            const planAmount = parseFloat(selectedPlan.data('amount')) || 0;
+
+            // Force update plan amount
+            $('#PlanAmount').val(planAmount);
+
+            calculateAmounts();
+        });
+
+
+        // 🔹 When editing Plan Amount manually → recalc
+        $('#PlanAmount').on('input', function() {
+            calculateAmounts();
+        });
+
+
+        // 🔹 Extra Members or Start Date change → recalc
+        $('#iExtraMember, #StartDate').on('input change', function() {
+            calculateAmounts();
+        });
     </script>
+
 
     <script>
         function getsearchparentid() {

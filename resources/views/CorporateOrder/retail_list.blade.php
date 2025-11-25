@@ -51,6 +51,9 @@
                                                         data-sort="are_name">Buying Name</th>
 
                                                     <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">Mobile</th>
+
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
                                                         data-sort="are_name">Plan</th>
 
                                                     <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
@@ -90,7 +93,14 @@
 
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
-                                                            {{ $CorporateOrder->Name ?? '-' }}</td>
+                                                            <a
+                                                                href="{{ route('Corporate_Order.appoitment_or_labdisplay', $CorporateOrder->memberid) }}">
+                                                                {{ $CorporateOrder->Name ?? '-' }}</a>
+                                                        </td>
+
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->mobile ?? '-' }}</td>
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
                                                             {{ $CorporateOrder->plan->name ?? '-' }}</td>

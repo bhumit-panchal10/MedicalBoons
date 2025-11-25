@@ -566,21 +566,21 @@
             <!--    </div>-->
             <!--</div>-->
             <div class="testimonial-wrapper">
-    <div class="owl-carousel owl-theme mx-auto">
-        @foreach ($Testimonial as $Testimoni)
-            <div class="testimonial-card text-center p-3">
-                <img src="{{ asset('/upload/testimonial/' . $Testimoni->photo) }}"
-                     class="testimonial-img mx-auto mb-3"
-                     alt="Customer"
-                     style="width:80px;height:80px;border-radius:50%;object-fit:cover;" />
-                <h5 class="testimonial-name">{{ $Testimoni->name ?? '' }}</h5>
-                <p class="testimonial-text text-center">
-                    {{ $Testimoni->comment ?? '' }}
-                </p>
-            </div>
-        @endforeach
-    </div>
-</div>
+                <div class="owl-carousel owl-theme mx-auto">
+                    @foreach ($Testimonial as $Testimoni)
+                        <div class="testimonial-card text-center p-3">
+                            <img src="{{ $Testimoni->photo ? asset('/upload/testimonial/' . $Testimoni->photo) : asset('/assets/images/Front/userno_image.jpeg') }}"
+                                 class="testimonial-img mx-auto mb-3"
+                                 alt="Customer"
+                                 style="width:80px;height:80px;border-radius:50%;object-fit:cover;" />
+                            <h5 class="testimonial-name">{{ $Testimoni->name ?? '' }}</h5>
+                            <p class="testimonial-text text-center">
+                                {{ $Testimoni->comment ?? '' }}
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+           </div>
         </div>
     </section>
 @endsection

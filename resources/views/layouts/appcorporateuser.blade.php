@@ -343,7 +343,7 @@
     </div>
 
     @include('common.footerjscorporateuser')
-
+    @yield('script')
 
 </body>
 

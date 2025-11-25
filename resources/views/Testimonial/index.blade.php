@@ -63,7 +63,7 @@
                                                 <div class="mb-3">
                                                     <label for="email-field"
                                                         class="inline-block mb-2 text-base font-medium">Description</label>
-                                                    <textarea id="description" name="description" maxlength="50"
+                                                    <textarea id="description" name="description" maxlength="300"
                                                         class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                                                         placeholder="Enter Description" autocomplete="off" autofocus=""></textarea>
                                                 </div>
@@ -253,7 +253,7 @@
                             <div class="mb-3">
                                 <label for="email-field"
                                     class="inline-block mb-2 text-base font-medium">Description</label>
-                                <textarea id="editdescription" name="editdescription" maxlength="50"
+                                <textarea id="editdescription" name="editdescription" maxlength="300"
                                     class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                                     placeholder="Enter Description" autocomplete="off" autofocus=""></textarea>
                             </div>

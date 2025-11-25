@@ -8,6 +8,7 @@ use App\Models\Plan;
 use App\Models\MemberOrder;
 use App\Models\CorporateOrder;
 use App\Models\Member;
+use App\Models\LabReportRequestMaster;
 
 use Brian2694\Toastr\Facades\Toastr;
 use GPBMetadata\Google\Api\Service;
@@ -24,22 +25,20 @@ class CorporateOrderController extends Controller
 
 {
 
-    public function payment_receipt_pdf(Request $request , $id)
+    public function payment_receipt_pdf(Request $request, $id)
     {
         try {
-           
+
             $CorporateOrder = CorporateOrder::with('plan', 'companyname')->where('Corporate_Order_id', $id)->first();
-          return view('pdf.payment_receipt', compact('CorporateOrder'));
-            
+            return view('pdf.payment_receipt', compact('CorporateOrder'));
         } catch (\Throwable $th) {
             //throw $th;
         }
-
     }
     public function invoice_update(Request $request)
     {
         try {
-            
+
             $request->validate([
                 'invoice_no' => 'required|unique:Corporate_Order,invoice_no,' . $request->order_id . ',Corporate_Order_id',
             ]);
@@ -52,42 +51,55 @@ class CorporateOrderController extends Controller
         }
     }
 
-    
+
     public function index(Request $request)
     {
         try {
             $CorporateOrders = CorporateOrder::with('plan', 'companyname')
-            ->where('iOrderType',1)
-            ->orderBy('Corporate_Order_id', 'desc')
-            ->paginate(config('app.per_page'));
+                ->where('iOrderType', 1)
+                ->orderBy('Corporate_Order_id', 'desc')
+                ->paginate(config('app.per_page'));
             return view('CorporateOrder.index', compact('CorporateOrders'));
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
         }
     }
-    
+
     public function RetailOrderlist(Request $request)
     {
         try {
             $CorporateOrders = CorporateOrder::with('plan', 'companyname')
-            ->where('iOrderType',3)
-             ->orderBy('Corporate_Order_id', 'desc')
-            ->paginate(config('app.per_page'));
+                ->where('iOrderType', 3)
+                ->orderBy('Corporate_Order_id', 'desc')
+                ->paginate(config('app.per_page'));
             return view('CorporateOrder.retail_list', compact('CorporateOrders'));
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
         }
     }
-    
-     public function B2BOrderlist(Request $request)
+
+    public function appoitment_or_labdisplay(Request $request, $memberid)
     {
         try {
-            $CorporateOrders = CorporateOrder::with('plan', 'companyname','member')
-            ->where('iOrderType',2)
-            ->orderBy('Corporate_Order_id', 'desc')
-            ->paginate(config('app.per_page'));
+            $appointments = LabReportRequestMaster::with('member', 'AssociatedMember', 'labreqmasterdetail.family_member')->where(['appointments_flag' => 1, 'member_id' => $memberid])->paginate(config('app.per_page'));
+            $LabReportinquirys = LabReportRequestMaster::with('labreqmasterdetail', 'lab', 'member')->where(['appointments_flag' => 2, 'member_id' => $memberid])->paginate(config('app.per_page'));
+
+            return view('CorporateOrder.AppoitmentORLablist', compact('appointments', 'LabReportinquirys'));
+        } catch (\Throwable $th) {
+            Toastr::error('Error: ' . $th->getMessage());
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function B2BOrderlist(Request $request)
+    {
+        try {
+            $CorporateOrders = CorporateOrder::with('plan', 'companyname', 'member')
+                ->where('iOrderType', 2)
+                ->orderBy('Corporate_Order_id', 'desc')
+                ->paginate(config('app.per_page'));
             return view('CorporateOrder.B2BUser_list', compact('CorporateOrders'));
         } catch (\Throwable $th) {
             Toastr::error('Error: ' . $th->getMessage());
@@ -100,7 +112,7 @@ class CorporateOrderController extends Controller
     {
         try {
             $Companyname = Users::where(['Type' => 1])->get();
-            $Plans = Plan::where('is_corporate',1)->get();
+            $Plans = Plan::where('is_corporate', 1)->get();
             $Mainparentids = Users::where(['Type' => 2, 'Main_parent_id' => 0])->get();
 
             return view('CorporateOrder.add', compact('Companyname', 'Plans', 'Mainparentids'));
@@ -126,14 +138,14 @@ class CorporateOrderController extends Controller
         DB::beginTransaction();
 
         // try {
-        
-         Validator::extend('mobile_no', function ($attribute, $value, $parameters, $validator) {
-              return preg_match('/^[6-9][0-9]{9}$/', $value);
+
+        Validator::extend('mobile_no', function ($attribute, $value, $parameters, $validator) {
+            return preg_match('/^[6-9][0-9]{9}$/', $value);
         }, 'The :attribute must be a valid 10-digit Indian mobile number.');
-             
+
         $CorporateOrder = CorporateOrder::where('Guid', $guid)->first();
         $orderid = $CorporateOrder->Corporate_Order_id ?? 0;
-        
+
         $Membercountorderwise = MemberOrder::where('Order_id', $orderid)->count();
         if ($Membercountorderwise < $CorporateOrder->iExtraMember) {
             $request->validate([
@@ -147,14 +159,14 @@ class CorporateOrderController extends Controller
             ], [
                 'mobile_no.unique' => 'This mobile no is already registered.',
             ]);
-           
+
 
             // Check if mobile number exists
             $existingMember = Member::where('mobile', $request->mobile_no)->first();
 
             if ($existingMember) {
                 DB::rollBack();
-                return redirect()->back()->withInput('error','Member with this mobile number already exists. No email sent.');
+                return redirect()->back()->withInput('error', 'Member with this mobile number already exists. No email sent.');
             }
 
             $password = Str::password(12);
@@ -202,7 +214,6 @@ class CorporateOrderController extends Controller
             DB::rollBack();
             //return redirect()->back()->withInput('error','Your member limit is over!');
             return redirect()->back()->with('error', 'Your member limit is over!')->withInput();
-
         }
         $planid = $CorporateOrder->iPlanId;
         $ExtraMember = $CorporateOrder->iExtraMember;
@@ -345,7 +356,7 @@ class CorporateOrderController extends Controller
         try {
             $Mainparentids = Users::where(['Type' => 2, 'Main_parent_id' => 0])->get();
             $Companyname = Users::where(['Type' => 1])->get();
-            $Plans = Plan::where('is_corporate',1)->get();
+            $Plans = Plan::where('is_corporate', 1)->get();
             $data = CorporateOrder::where('Corporate_Order_id', $id)->first();
             return view('CorporateOrder.edit', compact('data', 'Companyname', 'Plans', 'Mainparentids'));
         } catch (\Throwable $th) {

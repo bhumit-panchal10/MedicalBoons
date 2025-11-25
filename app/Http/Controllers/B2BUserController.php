@@ -123,6 +123,7 @@ class B2BUserController extends Controller
 
             $data = [
                 'LoginId' => $request->email,
+                'mobile' => $request->mobile,
                 'contact_person' => $request->contact_person,
                 "Password" => $request->password
             ];
