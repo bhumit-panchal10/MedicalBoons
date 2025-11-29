@@ -28,14 +28,21 @@ class LabTestReportinquiryController extends Controller
 
 {
 
+    public function getDetail($id)
+    {
+        $LabReportdetail = LabReportRequestdetail::with('master', 'LabTestRportAmount', 'LabTest_Catgory_Name', 'family_member', 'Test_Name')->where('LabReport_Request_Master_id', $id)->paginate(config('app.per_page'));
+
+        return view('LabTestReportInquiry.popup_detail', compact('LabReportdetail'));
+    }
+
+
     public function index(Request $request)
     {
         try {
             $LabReportinquirys = LabReportRequestMaster::with('labreqmasterdetail', 'lab', 'member')->where('appointments_flag', 2)->paginate(config('app.per_page'));
-            //dd($LabReportinquirys);
             return view('LabTestReportInquiry.index', compact('LabReportinquirys'));
         } catch (\Throwable $th) {
-            \Toastr::error('Error: ' . $th->getMessage());
+            Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -385,13 +392,13 @@ class LabTestReportinquiryController extends Controller
 
     public function detail_delete(Request $request)
     {
-        
+
         DB::beginTransaction();
         try {
 
-           
+
             $detail = LabReportRequestdetail::with('LabTestRportAmount')->where('LabReport_Request_detail_id', $request->id)->first();
-            
+
             $masterId = $detail->LabReport_Request_Master_id;
             LabReportRequestdetail::with('LabTestRportAmount')->where('LabReport_Request_detail_id', $request->id)->delete();
 
@@ -400,33 +407,32 @@ class LabTestReportinquiryController extends Controller
                 ->get()
                 ->sum(function ($detail) {
                     return optional($detail->LabTestRportAmount)->NetAmount ?? 0;
-
                 });
-           
-           
-            
+
+
+
             $reportCount = $detail->count();
-            
+
             $specialDiscount = $reportCount > 1 ? ($reportCount - 1) * 100 : 0;
-             
+
             $afterSpecial = $netAmount - $specialDiscount;
-            
+
             $master = LabReportRequestMaster::where('LabReport_Request_id', $masterId)->first();
-           
+
             $dis = $master->discount_amount ?? 0;
             $mainamount = $afterSpecial - $dis;
             //dd($mainamount);
-            
+
             LabReportRequestMaster::where('LabReport_Request_id', $masterId)
                 ->update([
                     'NetAmount' => $mainamount,
                     'special_discount' => $specialDiscount
                 ]);
-                
-            
-                
-            
-            
+
+
+
+
+
             DB::commit();
             Toastr::success('Lab Report Request Detail Master deleted successfully :)', 'Success');
             return response()->json(['success' => true]);

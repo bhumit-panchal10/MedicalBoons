@@ -80,9 +80,11 @@ class CorporateOrderController extends Controller
         }
     }
 
-    public function appoitment_or_labdisplay(Request $request, $memberid)
+    public function appoitment_or_labdisplay(Request $request)
     {
         try {
+
+            $memberid = $request->member_id;
             $appointments = LabReportRequestMaster::with('member', 'AssociatedMember', 'labreqmasterdetail.family_member')->where(['appointments_flag' => 1, 'member_id' => $memberid])->paginate(config('app.per_page'));
             $LabReportinquirys = LabReportRequestMaster::with('labreqmasterdetail', 'lab', 'member')->where(['appointments_flag' => 2, 'member_id' => $memberid])->paginate(config('app.per_page'));
 

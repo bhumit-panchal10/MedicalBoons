@@ -93,9 +93,11 @@
 
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
-                                                            <a
-                                                                href="{{ route('Corporate_Order.appoitment_or_labdisplay', $CorporateOrder->memberid) }}">
-                                                                {{ $CorporateOrder->Name ?? '-' }}</a>
+                                                            <a href="javascript:void(0)"
+                                                                onclick="getAppointmentLabData(<?= $CorporateOrder->memberid ?>)"
+                                                                class="text-blue-600 underline">
+                                                                {{ $CorporateOrder->Name ?? '-' }}
+                                                            </a>
                                                         </td>
 
                                                         <td
@@ -220,8 +222,58 @@
         </div>
     </div>
 
+
+
+    <div id="AppointmentLabdataModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-3/5 p-6">
+            <h2 class="text-xl font-semibold mb-4">Member Details</h2>
+
+            <div id="AppointmentLabContent">
+                Loading...
+            </div>
+
+            <div class="mt-4 text-right">
+                <button onclick="closeAppLabModal()" class="px-4 py-2 bg-red-500 text-white rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
 @endsection
 @section('script')
+    <script>
+        function getAppointmentLabData(memberId) {
+            // Open modal
+            document.getElementById('AppointmentLabdataModal').classList.remove('hidden');
+
+            // Show loading
+            document.getElementById('AppointmentLabContent').innerHTML =
+                "<p class='text-center p-4'>Loading...</p>";
+
+            // Make AJAX call
+            $.ajax({
+                url: "{{ route('Corporate_Order.appoitment_or_labdisplay') }}",
+                type: "GET",
+                data: {
+                    member_id: memberId
+                },
+                success: function(data) {
+                    document.getElementById('AppointmentLabContent').innerHTML = data;
+                },
+                error: function() {
+                    document.getElementById('AppointmentLabContent').innerHTML =
+                        "<p class='text-red-500 p-4 text-center'>Failed to load data.</p>";
+                }
+            });
+        }
+
+        function closeAppLabModal() {
+            document.getElementById('AppointmentLabdataModal').classList.add('hidden');
+        }
+    </script>
     <script>
         function invocieno(id) {
             $("#order_id").val(id);
