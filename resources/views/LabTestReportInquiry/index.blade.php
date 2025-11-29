@@ -160,6 +160,13 @@
                                                                         <i class="ri-delete-bin-5-fill"></i>
                                                                     </a>
 
+                                                                    <a href="javascript:void(0)"
+                                                                        onclick="viewLabDetail({{ $labreport->LabReport_Request_id }})"
+                                                                        title="Info">
+                                                                        <i class="ri-information-fill text-blue-400"></i>
+                                                                    </a>
+
+
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -189,6 +196,49 @@
             <!-- End Page-content -->
         </div>
     </div>
+
+
+
+    <div id="infoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-3/5 p-6">
+            <h2 class="text-xl font-semibold mb-4">Lab Inquiry Detail</h2>
+
+            <div id="modalContent">
+                Loading...
+            </div>
+
+            <div class="mt-4 text-right">
+                <button onclick="closeModal()" class="px-4 py-2 bg-red-500 text-white rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function viewLabDetail(id) {
+
+            // Show modal
+            document.getElementById("infoModal").classList.remove("hidden");
+
+            // Loading text
+            document.getElementById("modalContent").innerHTML = "Loading...";
+
+            // Fetch using correct Laravel route
+            fetch("{{ url('/admin/LabTestInquiryReport/getDetail') }}/" + id)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("modalContent").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("modalContent").innerHTML = "Error loading data.";
+                });
+        }
+
+        function closeModal() {
+            document.getElementById("infoModal").classList.add("hidden");
+        }
+    </script>
+
 
 
     <script>

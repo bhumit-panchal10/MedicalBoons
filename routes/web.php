@@ -160,6 +160,8 @@ Route::prefix('admin')->name('LabTestinquiryReport.')->middleware('auth')->group
     Route::post('/LabTestinquiryReport/detail/update/{id?}', [LabTestReportinquiryController::class, 'detail_update'])->name('detail_update');
     Route::delete('/LabTestinquiryReport/detail/delete', [LabTestReportinquiryController::class, 'detail_delete'])->name('detail_delete');
 });
+Route::get('/admin/LabTestInquiryReport/getDetail/{id}', [LabTestReportinquiryController::class, 'getDetail'])->name('getDetail');
+
 //categories Master
 Route::prefix('admin')->name('service.')->middleware('auth')->group(function () {
     Route::any('/service/index', [ServiceController::class, 'index'])->name('index');
@@ -368,7 +370,7 @@ Route::prefix('admin')->name('Corporate_Order.')->middleware('auth')->group(func
 
     Route::delete('/Corporate_Order/delete', [CorporateOrderController::class, 'delete'])->name('delete');
     Route::delete('/Corporate_Order/deleteselected', [CorporateOrderController::class, 'deleteselected'])->name('deleteselected');
-    Route::get('/Corporate_Order/appoitment_or_labdisplay/{memberid?}', [CorporateOrderController::class, 'appoitment_or_labdisplay'])->name('appoitment_or_labdisplay');
+    Route::get('/Corporate_Order/appoitment_or_labdisplay', [CorporateOrderController::class, 'appoitment_or_labdisplay'])->name('appoitment_or_labdisplay');
 });
 Route::get('/CorporateOrderMemberRegistration/{guid?}', [CorporateOrderController::class, 'CorporateOrderMemberRegistration'])->name('CorporateOrderMemberRegistration');
 
