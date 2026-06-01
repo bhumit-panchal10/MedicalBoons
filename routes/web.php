@@ -354,6 +354,8 @@ Route::prefix('admin')->name('B2B_User.')->middleware('auth')->group(function ()
 Route::prefix('admin')->name('Corporate_Order.')->middleware('auth')->group(function () {
     Route::any('/Corporate_Order/index', [CorporateOrderController::class, 'index'])->name('index');
     Route::any('/Corporate_Order/RetailOrderlist', [CorporateOrderController::class, 'RetailOrderlist'])->name('RetailOrderlist');
+    Route::get('/Corporate_Order/RetailRegistration', [CorporateOrderController::class, 'RetailRegistrationForm'])->name('RetailRegistrationForm');
+    Route::post('/Corporate_Order/RetailRegistrationStore', [CorporateOrderController::class, 'RetailRegistrationStore'])->name('RetailRegistrationStore');
     Route::any('/Corporate_Order/AssociateOrderlist', [CorporateOrderController::class, 'B2BOrderlist'])->name('B2BOrderlist');
 
     Route::any('/Corporate_Order/add', [CorporateOrderController::class, 'add'])->name('add');
