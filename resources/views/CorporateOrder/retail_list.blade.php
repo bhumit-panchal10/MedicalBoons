@@ -14,6 +14,12 @@
                 <div class="grow">
                     <h5 class="text-16">Retail Order List</h5>
                 </div>
+                <div class="shrink-0">
+                    <a href="{{ route('Corporate_Order.RetailRegistrationForm') }}"
+                        class="text-white transition-all duration-200 ease-linear btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
+                        Customer Registration
+                    </a>
+                </div>
                 <ul class="flex items-center gap-2 text-sm font-normal shrink-0">
                     <li
                         class="relative before:content-['\ea54'] before:font-remix ltr:before:-right-1 rtl:before:-left-1  before:absolute before:text-[18px] before:-top-[3px] ltr:pr-4 rtl:pl-4 before:text-slate-400 dark:text-zink-200">
@@ -52,6 +58,20 @@
 
                                                     <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
                                                         data-sort="are_name">Mobile</th>
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">Email</th>
+
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">Address</th>
+
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">State</th>
+
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">City</th>
+
+                                                    <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
+                                                        data-sort="are_name">Pincode</th>
 
                                                     <th class="sort px-3.5 py-2.5 font-semibold border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right"
                                                         data-sort="are_name">Plan</th>
@@ -103,6 +123,22 @@
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
                                                             {{ $CorporateOrder->mobile ?? '-' }}</td>
+
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->email ?? '-' }}</td>
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->address ?? '-' }}</td>
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->state ?? '-' }}</td>
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->city ?? '-' }}</td>
+                                                        <td
+                                                            class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
+                                                            {{ $CorporateOrder->pincode ?? '-' }}</td>
                                                         <td
                                                             class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 customer_name">
                                                             {{ $CorporateOrder->plan->name ?? '-' }}</td>
@@ -222,8 +258,6 @@
         </div>
     </div>
 
-
-
     <div id="AppointmentLabdataModal"
         class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg shadow-lg w-3/5 p-6">
@@ -238,9 +272,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 @endsection
 @section('script')

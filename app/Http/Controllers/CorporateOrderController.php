@@ -19,6 +19,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 
 class CorporateOrderController extends Controller
@@ -75,6 +76,190 @@ class CorporateOrderController extends Controller
                 ->paginate(config('app.per_page'));
             return view('CorporateOrder.retail_list', compact('CorporateOrders'));
         } catch (\Throwable $th) {
+            Toastr::error('Error: ' . $th->getMessage());
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function RetailRegistrationForm()
+    {
+        try {
+            $plans = Plan::orderBy('name')->get();
+            return view('CorporateOrder.retail_registration', compact('plans'));
+        } catch (\Throwable $th) {
+            Toastr::error('Error: ' . $th->getMessage());
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function RetailRegistrationStore(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'mobile' => 'required|digits:10',
+                'address' => 'required',
+                'state' => 'required',
+                'city' => 'required',
+                'pincode' => 'required',
+                'plan_id' => 'required|exists:plans,id',
+                'plan_amount' => 'required|numeric|min:0',
+                'plan_member' => 'required|numeric|min:0',
+                'extra_amount_per_person' => 'required|numeric|min:0',
+                'extra_memeber' => 'nullable|numeric|min:0',
+                'net_amount' => 'required|numeric|min:0',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+            ]);
+
+            $plan = Plan::where('id', $request->plan_id)->firstOrFail();
+            $orderGuid = Str::uuid();
+            $isRenew = false;
+            $generatedPassword = null;
+
+            $member = Member::where('mobile', $request->mobile)->first();
+
+            if ($member) {
+                $isRenew = true;
+
+                if ($member->email !== $request->email) {
+                    $emailInUse = Member::where('email', $request->email)
+                        ->where('id', '!=', $member->id)
+                        ->exists();
+                    if ($emailInUse) {
+                        throw new \Exception('This email is already registered with another member.');
+                    }
+                }
+
+                $member->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'state' => $request->state,
+                    'city' => $request->city,
+                    'address' => $request->address,
+                    'pincode' => $request->pincode,
+                ]);
+            } else {
+                $emailInUse = Member::where('email', $request->email)->exists();
+                if ($emailInUse) {
+                    throw new \Exception('This email is already registered.');
+                }
+
+                $generatedPassword = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+                $member = Member::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'mobile' => $request->mobile,
+                    'state' => $request->state,
+                    'city' => $request->city,
+                    'address' => $request->address,
+                    'pincode' => $request->pincode,
+                    'password' => Hash::make($generatedPassword),
+                ]);
+            }
+
+            $startDate = Carbon::parse($request->start_date);
+            $latestOrder = CorporateOrder::where('memberid', $member->id)
+                ->where('isPayment', 1)
+                ->orderBy('end_date', 'desc')
+                ->first();
+            if ($latestOrder && $latestOrder->end_date) {
+                $latestEndDate = Carbon::parse($latestOrder->end_date);
+                if ($latestEndDate->greaterThanOrEqualTo(Carbon::today())) {
+                    $startDate = $latestEndDate->copy()->addDay();
+                    $isRenew = true;
+                }
+            }
+
+            $endDate = Carbon::parse($request->end_date);
+            if (!empty($plan->duration_in_days) && (int) $plan->duration_in_days > 0) {
+                $endDate = $startDate->copy()->addDays(((int) $plan->duration_in_days) - 1);
+            }
+
+            $orderData = [
+                'iUserId' => 0,
+                'memberid' => $member->id,
+                'iOrderType' => 3,
+                'iPlanId' => $request->plan_id,
+                'iExtraMember' => $request->extra_memeber ?? 0,
+                'iamountExtraMember' => $request->extra_amount_per_person ?? 0,
+                'iPlanMembers' => $request->plan_member ?? 0,
+                'PlanAmount' => $request->plan_amount ?? 0,
+                'NetAmount' => $request->net_amount ?? 0,
+                'start_date' => $startDate->toDateString(),
+                'end_date' => $endDate->toDateString(),
+                'main_parent_id' => 0,
+                'parent_id' => 0,
+                'Guid' => $orderGuid,
+                'Name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'address' => $request->address,
+                'state' => $request->state,
+                'city' => $request->city,
+                'pincode' => $request->pincode,
+                'isPayment' => 1,
+                'created_at' => now(),
+                'strIP' => $request->ip(),
+            ];
+
+            $orderId = DB::table('Corporate_Order')->insertGetId($orderData);
+            CorporateOrder::where('Corporate_Order_id', $orderId)->update(['memberid' => $member->id]);
+
+            MemberOrder::create([
+                'Member_id' => $member->id,
+                'Order_id' => $orderId,
+            ]);
+
+            $walletbal = $plan->wallet_balance ?? 0;
+            $extraWalletAmount = $plan->extra_amount_per_person_in_wallet ?? 0;
+            $openingclosing = $walletbal + (($request->extra_memeber ?? 0) * $extraWalletAmount);
+
+            DB::table('ledger')->insert([
+                'order_id' => $orderId,
+                'openingBalance' => $openingclosing,
+                'cr' => 0,
+                'dr' => 0,
+                'closingBalance' => $openingclosing,
+                'created_at' => now(),
+            ]);
+
+            $sendEmailDetails = DB::table('sendemaildetails')->where(['id' => 9])->first();
+            if ($sendEmailDetails && $member->email) {
+                $msg = [
+                    'FromMail' => $sendEmailDetails->strFromMail,
+                    'Title' => $sendEmailDetails->strTitle,
+                    'ToEmail' => $member->email,
+                    'Subject' => $sendEmailDetails->strSubject,
+                ];
+
+                $mailData = [
+                    'Mobile' => $member->mobile,
+                    'iExtraMember' => $request->extra_memeber ?? 0,
+                    'iamountExtraMember' => $request->extra_amount_per_person ?? 0,
+                    'contact_person' => $member->name ?? '',
+                    'Password' => $generatedPassword ?? 'Already Created',
+                    'plan_name' => $plan->name ?? '',
+                    'plan_amount' => $request->plan_amount ?? 0,
+                    'plan_no_of_members' => $request->plan_member ?? 0,
+                    'start_date' => $startDate->format('d-m-Y'),
+                    'end_date' => $endDate->format('d-m-Y'),
+                    'app_link' => 'https://play.google.com/store/apps/details?id=com.apollo.medical_boons',
+                ];
+
+                Mail::send('emails.Memberemail', ['data' => $mailData], function ($message) use ($msg) {
+                    $message->from($msg['FromMail'], $msg['Title']);
+                    $message->to($msg['ToEmail'])->subject($msg['Subject']);
+                });
+            }
+
+            DB::commit();
+            Toastr::success($isRenew ? 'Plan renewed and customer updated successfully.' : 'Customer registration saved successfully.');
+            return redirect()->route('Corporate_Order.RetailOrderlist');
+        } catch (\Throwable $th) {
+            DB::rollBack();
             Toastr::error('Error: ' . $th->getMessage());
             return redirect()->back()->withInput();
         }
